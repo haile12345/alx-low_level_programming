@@ -2,12 +2,13 @@
 #include <stdlib.h>
 
 /**
- * main - Write a program that multiplies two numbers
- * @argc: length of argument
- * @argv: array of argument
+ * main - function with two arguments
+ * @argc: int type argument
+ * @argv: char pointer array type argument
  *
- * Return: 0
- **/
+ * Description: prints the result of the multiplication
+ * Return: 1
+ */
 
 int main(int argc, char *argv[])
 {
