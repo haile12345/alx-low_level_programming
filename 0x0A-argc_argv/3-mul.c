@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 /**
  * main - function with two arguments
  * @argc: int type argument
@@ -9,21 +8,20 @@
  * Description: prints the result of the multiplication
  * Return: 1
  */
-
 int main(int argc, char *argv[])
 {
-	int i;
+	int result;
 
-	if (argc != 3)
+	if (argc == 3)
 	{
-		printf("Error\n");
-		return (1);
+		result = atoi(argv[1]) * atoi(argv[2]);
+		printf("%d\n", result);
+		return (0);
 	}
 	else
 	{
-		i = atoi(argv[1]) * atoi(argv[2]);
-
-		printf("%d\n", i);
+		printf("Error\n");
+		return (1);
 	}
 }
 
