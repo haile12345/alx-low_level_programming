@@ -12,6 +12,8 @@
 
 int main(int argc, char *argv[])
 {
+	int i;
+
 	if (argc != 3)
 	{
 		printf("%s\n", "Error");
@@ -19,9 +21,9 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		int i = atoi(argv[1]) * atoi(argv[2]);
+		i = atoi(argv[1]) * atoi(argv[2]);
 
-		printf("%i\n", i);
+		printf("%d\n", i);
 	}
 }
 
