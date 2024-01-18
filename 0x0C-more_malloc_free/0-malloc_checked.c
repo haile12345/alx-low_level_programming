@@ -18,5 +18,5 @@ void *malloc_checker(unsigned int b)
 	{
 		return (p);
 	}
-	return (98);
+	exit(98);
 }
