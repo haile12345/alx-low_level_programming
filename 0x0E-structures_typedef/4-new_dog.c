@@ -1,80 +1,47 @@
 #include "dog.h"
-
-
-/**
-*_strlen - returns length of
-*a string
-*@str: string to be counted
-*Return: returns length of string
-*/
-int _strlen(char *str)
-{
-int len = 0;
-while (str)
-len++;
-
-return (len);
-}
-
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
-*_strcopy - copy string pointed by src
-*into dest variable
-*@dest:buffer storing string copy
-*@src: buffer storing string to copy
-*Return:returns copied string
-*/
-char *_strcopy(char *dest, char *src)
-{
-int index = 0;
-
-for (; src[index] ; index++)
-dest[index] = src[index];
-
-dest[index] = '\0';
-return (dest);
-}
+ * new_dog - pointer
+ * @name: variable name of pet
+ * @age: age of pet
+ * @owner: propietarie of pet
+ *Return: null
+ **/
 
 
-
-
-/**
-*new_dog - creates a new dog
-*@name: name of new dog
-*@age: age of new dog
-*@owner: owner of new dog
-*Return: returns NULL in case
-*of failure
-*/
 dog_t *new_dog(char *name, float age, char *owner)
 {
-dog_t *doggo;
+dog_t *dog;
+unsigned int l1 = 0, l2 = 0, i, j;
 
-if (name == NULL || age < 0 || owner == NULL)
-return (NULL);
-
-doggo = malloc(sizeof(dog_t));
-if (doggo == NULL)
-return (NULL);
-
-doggo->name = malloc(sizeof(char) * (_strlen(name) + 1));
-if (doggo->name == NULL)
+dog = malloc(sizeof(dog_t));
+if (name != NULL && owner != NULL && dog != NULL)
 {
-free(doggo);
+while (name[l1] != 0)
+l1++;
+while (owner[l2] != 0)
+l2++;
+
+dog->name = malloc((l1 + 1) * sizeof(char));
+dog->owner = malloc((l2 + 1) * sizeof(char));
+
+if (dog->name == NULL || dog->owner == NULL)
+{
+free(dog->name);
+free(dog->owner);
+free(dog);
 return (NULL);
 }
-
-doggo->owner = malloc(sizeof(char) * (_strlen(owner) + 1));
-if (doggo->owner == NULL)
-{
-free(doggo->name);
-free(doggo);
-return (NULL);
+for (i = 0; i < l1; i++)
+dog->name[i] = name[i];
+dog->name[i] = 0;
+dog->age = age;
+for (j = 0; j < l2; j++)
+dog->owner[j] = owner[j];
+dog->owner[j] = 0;
+return (dog);
 }
-
-doggo->name = _strcopy(doggo->name, name);
-doggo->age = age;
-doggo->owner = _strcopy(doggo->owner, owner);
-
-return (doggo);
+return (NULL);
 }
