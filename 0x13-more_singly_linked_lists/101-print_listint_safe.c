@@ -1,69 +1,63 @@
 #include "lists.h"
-
 /**
- * free_listp - frees a linked list
- * @head: head of a list.
+ * find_listint_loop_pl - function that finds a loop in a linked list.
  *
- * Return: no return.
+ * @head: list to search.
+ *
+ * Return: returns address of node where loop starts
  */
-void free_listp(listp_t **head)
+listint_t *find_listint_loop_pl(listint_t *head)
 {
-	listp_t *temp;
-	listp_t *curr;
+	listint_t *p;
+	listint_t *end;
 
-	if (head != NULL)
+	if (!head)
+		return (NULL);
+
+	end = head->next;
+	while (end != NULL)
 	{
-		curr = *head;
-		while ((temp = curr) != NULL)
+		if (end == end->next)
+			return (end);
+		p = head;
+		while (p != end)
 		{
-			curr = curr->next;
-			free(temp);
+			if (p == end->next)
+				return (end->next);
+			p = p->next;
 		}
-		*head = NULL;
+		end = end->next;
 	}
+	return (NULL);
 }
 
 /**
- * print_listint_safe - prints a linked list.
- * @head: head of a list.
+ * print_listint_safe - function that prints a listint_t linked list.
  *
- * Return: number of nodes in the list.
+ * @head: list to print.
+ *
+ * Return: returns the number of nodes printed
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t nnodes = 0;
-	listp_t *hptr, *new, *add;
+	size_t str_len = 0;
+	int l;
+	listint_t *l_node;
 
-	hptr = NULL;
-	while (head != NULL)
+	l_node = find_listint_loop_pl((listint_t *) head);
+
+	str_len = 0;
+	l = 1;
+	while ((head != l_node || l) && head != NULL)
 	{
-		new = malloc(sizeof(listp_t));
-
-		if (new == NULL)
-			exit(98);
-
-		new->p = (void *)head;
-		new->next = hptr;
-		hptr = new;
-
-		add = hptr;
-
-		while (add->next != NULL)
-		{
-			add = add->next;
-			if (head == add->p)
-			{
-				printf("-> [%p] %d\n", (void *)head, head->n);
-				free_listp(&hptr);
-				return (nnodes);
-			}
-		}
-
-		printf("[%p] %d\n", (void *)head, head->n);
+		printf("[%p] %d\n", (void *) head, head->n);
+		if (head == l_node)
+			l = 0;
 		head = head->next;
-		nnodes++;
+		str_len++;
 	}
 
-	free_listp(&hptr);
-	return (nnodes);
+	if (l_node)
+		printf("-> [%p] %d\n", (void *) head, head->n);
+	return (str_len);
 }
